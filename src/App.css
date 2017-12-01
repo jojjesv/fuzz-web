@@ -22,6 +22,30 @@
   font-size: large;
 }
 
+/* Article thumbnail */
+.article .thumbnail {
+  background-size: cover;
+  width: 64px;
+  display: inline-block;
+  height: 64px;
+  background-position: center;
+}
+
+/* Article item */
+.article {
+  text-align: center;
+  display: inline-block;
+  width: 128px;
+  height: 128px;
+}
+
+.article .name {
+  position: absolute;
+  transform: translateX(-50%);
+  margin-left: 64px;
+  font-size: 17px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
