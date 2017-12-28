@@ -1,0 +1,61 @@
+/* Uses a fixed footer */
+body[fixed-footer] footer {
+    position: fixed;
+}
+
+footer {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: left;
+    padding: 12px 24px;
+    background: rgba(227, 82, 120, 0.75);
+    color: #fafafa;
+}
+
+footer ul {
+    display: inline-block;
+}
+
+footer ul li {
+    font-size: 13px;
+    margin: 4px 0;
+}
+
+#company-info {
+}
+
+#app-info {
+    float: right;
+    text-align: right;
+}
+
+/* Feedback input */
+#feedback-msg {
+    position: absolute;
+    transform: translateX(-100%);
+    resize: none;
+    width: 256px;
+    height: 48px;
+    box-sizing: border-box;
+    font-family: merge;
+    padding: 12px;
+    font-size: 13px;
+    outline: none !important;
+    border: none;
+    border-radius: 12px;
+    border-top-right-radius: 3px;
+    color: #424242;
+}
+
+/* Feedback submit */
+#feedback-submit {
+    position: absolute;
+    transform: translateX(calc(-100%));
+    background: url("assets/ic_continue_24dp.png") no-repeat;
+    background-color: transparent;
+    background-position: 8px center;
+    margin-top: 48px;
+    color: #FAFAFA;
+    padding-left: 32px;
+}

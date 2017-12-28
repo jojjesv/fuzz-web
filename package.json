@@ -4,8 +4,13 @@
   "private": true,
   "dependencies": {
     "react": "^16.2.0",
+    "react-cookie": "^2.1.2",
+    "react-cookies": "^0.1.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-native-elements": "^0.18.5",
+    "react-scripts": "1.0.17",
+    "react-stripe-elements": "^1.2.1",
+    "react-transition-group": "^2.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

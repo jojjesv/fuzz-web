@@ -1,0 +1,179 @@
+/**
+*   A column in a horizontal group of two.
+*/
+.half-column {
+    width: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    padding-right: 4px;
+}
+
+.half-column + .half-column {
+    padding-right: 0;
+    padding-left: 4px;
+}
+
+#cost-details {
+    background: #3A92B5;
+    display: inline-block;
+    margin: 0;
+    padding: 18px;
+    border-radius: 18px;
+    border-bottom-left-radius: 3px;
+    color: #fafafa;
+    margin-top: 36px;
+}
+
+#cost-details li {
+    font-size: 14px;
+    margin: 4px 0;
+}
+
+/* Cost amount */
+#cost-details .amount {
+    display: inline-block;
+    margin-left: 8px;
+    opacity: 0.75;
+}
+
+#payment-form label {
+    display: block;
+}
+
+/* Label icon */
+#payment-form label img {
+    position: relative;
+    top: 6px;
+}
+
+/* Text input */
+.text-input,
+#payment-form input[type="text"]:not(.card-expiration) {
+    width: 100%;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    border: 2px solid #5ac6d9;
+    border-radius: 24px;
+    border-top-left-radius: 3px;
+    font-size: 14px;
+    outline: none !important;
+    margin-bottom: 12px;
+    background: white;
+}
+
+textarea[name="message"] {
+    height: 64px;
+    resize: none;
+}
+
+#payment-methods {
+    display: flex;
+}
+
+/* Container of single payment method */
+.payment-method-c {
+    height: 64px;
+    background: transparent;
+    flex: 1;
+    border-radius: 12px;
+    background-position: center 75%;
+    background-repeat: no-repeat;
+    background-image: url('./assets/ic_card_dark.png');
+}
+
+.payment-method-c:nth-of-type(2) {
+    background-image: url('./assets/ic_cash_dark.png');
+}
+
+.payment-method-c .radio {
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none !important;
+}
+
+.payment-method-c[checked] {
+    background-color: #3A92B5;
+    background-image: url('./assets/ic_card.png');
+}
+
+.payment-method-c[checked]:nth-of-type(2) {
+    background-image: url('./assets/ic_cash.png');
+}
+
+.payment-method-c p {
+    position: relative;
+    margin: 0;
+    bottom: 64px;
+    text-align: center;
+    width: 100%;
+    color: #424242;
+    pointer-events: none;
+}
+
+.payment-method-c[checked] p {
+    color: #fafafa;
+}
+
+#payment-form {
+    width: 368px;
+    margin: 16px auto 0 auto;
+}
+
+/* Label */
+#payment-form label {
+    font-size: 15px;
+    margin-top: 3px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    color: #46a3c2;
+}
+
+/* Nested text input for card expiration */
+.card-expiration {
+    outline: none !important;
+    border: none;
+    width: 24px;
+    font-size: 14px;
+}
+
+.card-expiration:nth-child(2) {
+    margin-left: 8px;
+}
+
+/* Selected cart items */
+#cart-items {
+    max-width: 430px;
+    overflow-y: hidden;
+    margin: 0;
+}
+
+/* Selected article */
+#cart-items .article {
+    width: 127px;
+    height: 127px;
+}
+
+/* Article name */
+#cart-items .article .name {
+    font-size: 14px;
+}
+
+/* Center labels */
+#cart-items .article .name,
+#cart-items .article .cost {
+    margin-left: 67.5px;
+}
+
+/* Quantity badge */
+#cart-items .quantity-badge {
+    margin-left: 92px;
+}
+
+/* Modal dialog which shows cart items */
+#cart-items-modal {
+    max-width: 56vw;
+    text-align: center;
+}

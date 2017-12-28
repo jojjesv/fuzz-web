@@ -1,0 +1,84 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    z-index: 99;
+    background-color: #46a3c2;
+    background-image: url('./assets/ic_logo_header_white.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Button to expand categories */
+#expand-categories {
+    position: fixed;
+    left: 24px;
+    top: 26px;
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgb(246, 119, 152);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('./assets/ic_categories.png');
+    z-index: 100;
+    box-shadow: 0 4px 24px rgba(20, 20, 20, 0.075);
+}
+
+/* Cart circle */
+#circle,
+.circle-ripple {
+    display: inline-block;
+    position: absolute;
+    width: 256px;
+    height: 256px;
+    border-radius: 50%;
+    background: #5ac6d9;
+    right: -72px;
+    top: -140px;
+}
+
+/* Effect for adding to cart */
+.circle-ripple {
+    top: 0;
+    right: 0;
+    animation: circle-ripple 350ms forwards;
+}
+
+@keyframes circle-ripple {
+    to {
+        opacity: 0;
+        transform: scale(1.33);
+    }
+}
+
+#cart-link {
+    position: fixed;
+    top: 8px;
+    white-space: nowrap;
+    right: 24px;
+    font-size: 14px;
+    color: #fafafa;
+    cursor: pointer;
+}
+
+/* Cart icon */
+#cart-link img {
+    position: relative;
+    top: 8px;
+}
+
+#cart-cost-label {
+    position: fixed;
+    right: 96px;
+    top: 36px;
+    display: inline-block;
+    background: #46a3c2;
+    color: #fafafa;
+    padding: 3px 12px;
+    border-radius: 10px;
+    font-size: 13px;
+}

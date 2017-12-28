@@ -1,0 +1,56 @@
+/* .modal class */
+#article-info {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0;
+    left: 50%;
+    height: 240px;
+    transform: translateX(-50%);
+    padding-top: 24px;
+    min-width: 480px;
+    top: initial !important;
+    transition: bottom 350ms cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+#article-info-bg {
+    overflow: hidden;
+}
+
+#article-info.entering {
+    bottom: -80px;
+}
+
+/* Header */
+#article-info h1 {
+    font-size: 22px;
+    padding-left: 152px;
+    margin-top: 0;
+    margin-bottom: 58px;
+}
+
+/* Loading indicator */
+#article-info .loading {
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: -24px;
+}
+
+#thumbnail {
+    width: 128px;
+    height: 128px;
+    position: absolute;
+    margin-top: -80px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 24px;
+}
+
+#contents {
+    text-align: center;
+}
+
+/* Article description */
+#description {
+    margin: 18px 0 12px 0;
+    color: #616161;
+}

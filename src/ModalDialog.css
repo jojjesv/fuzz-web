@@ -1,0 +1,40 @@
+body[has-modal] {
+    /* overflow: hidden; */
+}
+
+/* A modal dialog's background */
+.modal-bg {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(20, 20, 20, 0.25);
+    z-index: 100;
+    overflow-y: auto;
+    text-align: center;
+    opacity: 1;
+}
+
+.modal-bg.entering,
+.modal-bg.exiting {
+    opacity: 0;
+}
+
+/* Modal dialog container */
+.modal {
+    background: #FAFAFA;
+    border-radius: 3px;
+    padding: 48px 80px;
+    display: inline-block;
+    margin-top: 15vh;
+    margin-bottom: 15vh;
+    text-align: left;
+    position: relative;
+    top: 0;
+    box-shadow: 0 16px 80px rgba(20, 20, 20, 0.125);
+}
+
+.modal.entering {
+    top: -80px;
+}

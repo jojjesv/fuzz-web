@@ -1,0 +1,21 @@
+/* Base cookie consent container */
+#cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(227, 82, 120, 0.75);
+    color: #fafafa;
+    padding: 16px 36px;
+    text-align: center;
+}
+
+#cookie-consent p {
+    margin: 0;
+    display: inline-block;
+}
+
+/* Accept button */
+#cookie-consent button {
+    margin-left: 16px;
+}
