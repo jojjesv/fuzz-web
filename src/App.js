@@ -10,6 +10,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import TextDialog from './TextDialog';
 import CookieConsent from './CookieConsent';
+import PostOrderShortcut from './PostOrderShortcut';
 import './App.css';
 
 class App extends Component {
@@ -21,7 +22,8 @@ class App extends Component {
 		showExpandCategories: false,	//	Whether to show the button
 		expandedCategoriesVisible: false,	//	Whether to show the modal view
 		dialogMessage: null,
-		dialogCaption: null
+		dialogCaption: null,
+		postOrderDialog: null
 	}
 
 	textDialog = null;
@@ -158,6 +160,8 @@ class App extends Component {
 								});
 								this.articleInfoDialog.show(data)
 							}}/>
+						
+						<PostOrderShortcut dialog={this.state.postOrderDialog} />
 
 						<ArticleInfo ref={
 							(e) => this.articleInfoDialog = e
@@ -170,7 +174,11 @@ class App extends Component {
 						
 						{
 							state.listeningOrderId &&
-							<PostOrder orderId={state.listeningOrderId} visible={true}/>
+							<PostOrder ref={(e) => {
+								if (e != null && this.state.postOrderDialog == null) {
+									this.setState({postOrderDialog: e});
+								}
+							}} orderId={state.listeningOrderId} visible={true} />
 						}
 
 					</div> : <PostalCode parent={this} 

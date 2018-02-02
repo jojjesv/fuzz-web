@@ -31,6 +31,10 @@ export default class Articles extends React.Component {
         window.addEventListener('scroll', this.handleWindowScroll.bind(this));
     }
 
+    componentWillMount(){
+        this.fetch();
+    }
+
     handleWindowScroll(ev) {
         const atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
@@ -227,7 +231,10 @@ export default class Articles extends React.Component {
             <div>
                 <ArticlesBackground />
                 <div className="articles">
-                    <h2>{state.header}</h2>
+                    <h2 style={{
+                            color: '#fafafa',
+                            fontSize: '30px'
+                        }} className="shadowed">{state.header}</h2>
                     <div>
                         { this.state.articleElements }
                     </div>

@@ -40,7 +40,11 @@ const styles = {
         transform: 'translate(-50%, -50%)',
     },
     inputHeading: {
-        color: '#fafafa'
+        color: '#fafafa',
+        background: 'rgba(227, 82, 120, 0.75)',
+        padding: '12px 16px',
+        borderRadius: '28px',
+        borderBottomRightRadius: '3px'
     },
     aboutContainer: {
         marginTop: '85vh',
@@ -98,15 +102,15 @@ class ScrollDownArrow extends AnimatedComponent {
  */
 export default class PostalCode extends React.Component {
 
-    /**
-     * Inputted postal code.
-     */
-    postalCode = "";
-
     state = {
         loading: false,
         deliverable: false,
-        undeliverable: false
+        undeliverable: false,
+        /**
+         * Inputted postal code.
+         */
+        postalCode: "",
+        undeliverablePostalCode: ""
     }
 
     checkDeliverableTimeout = null;
@@ -116,39 +120,53 @@ export default class PostalCode extends React.Component {
      */
     continueIfDeliverable = false;
 
-    constructor(props) {
-        super(props);
-
-        var storedPostalCode = document.cookie.match(/(^|;)\s*postalCode\s*=\s*([^;]+)/);
-
-        if (storedPostalCode && storedPostalCode.length) {
-            this.postalCode = storedPostalCode.pop();
-            this.checkDeliverable();
+    componentDidMount(){
+        if (!this.checkUrl()) {
+            this.checkCookie();
         }
     }
 
-    componentDidMount(){
-        this.checkUrl();
-    }
-
     /**
-     * Checks the URL for a postal code param and submits it.
+     * Checks the URL for a postal code param and submits it. Returns whether
+     * an input was found.
      */
     checkUrl(){
         let query = document.location.pathname;
         let queryMatch = query.match(/\/(\d+)/);
         if (queryMatch && queryMatch.length) {
-            this.postalCode = queryMatch.pop();
+            const postalCode = queryMatch.pop();
+
+            this.setState({
+                postalCode: postalCode
+            })
             this.continueIfDeliverable = true;
-            this.checkDeliverable();
+            this.checkDeliverable(postalCode);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks cookie for a postal code.
+     */
+    checkCookie(){
+        var storedPostalCode = document.cookie.match(/(^|;)\s*postalCode\s*=\s*([^;]+)/);
+        
+        if (storedPostalCode && storedPostalCode.length) {
+            const postalCode = storedPostalCode.pop();
+            this.setState({
+                postalCode: postalCode
+            });
+            this.checkDeliverable(postalCode);
         }
     }
 
     /**
      * Submits the postal code and maybe proceeds to the main screen.
      */
-    checkDeliverable(){
-        if (this.postalCode.length < 3) {
+    checkDeliverable(postalCode){
+        if (postalCode.length < 3) {
             if (this.state.deliverable || this.state.undeliverable) {
                 this.setState({
                     deliverable: false,
@@ -161,7 +179,7 @@ export default class PostalCode extends React.Component {
         this.setState({
             loading: true
         })
-        let get = "out=check_deliverable&postal_code=" + this.postalCode;
+        let get = "out=check_deliverable&postal_code=" + postalCode;
         Backend.request(get, null, this.parseDeliverable.bind(this));
     }
 
@@ -194,14 +212,20 @@ export default class PostalCode extends React.Component {
      * Settles on the inputted postal code and proceeds to main.
      */
     continueToMain(){
-        document.cookie = "postalCode=" + this.postalCode +
+        let postalCode = this.state.postalCode;
+
+        document.cookie = "postalCode=" + postalCode +
         ";expires=Fri, 31 Dec 9999 23:59:59 GMT";
 
-        ShoppingCart.postalCode = this.postalCode;
+        ShoppingCart.postalCode = postalCode;
 
         this.props.parent.setState({
-            postalCode: this.postalCode
-        })
+            postalCode: postalCode
+        });
+
+        window.history.pushState({},
+            document.title,
+            window.location.origin + "/" + this.state.postalCode);
     }
 
     /**
@@ -209,6 +233,7 @@ export default class PostalCode extends React.Component {
      */
     onNotDeliverable(){
         this.setState({
+            undeliverablePostalCode: this.state.postalCode,
             deliverable: false,
             undeliverable: true
         })
@@ -225,7 +250,9 @@ export default class PostalCode extends React.Component {
         if (this.checkDeliverableTimeout !== null) {
             clearTimeout(this.checkDeliverableTimeout);
         }
-        this.checkDeliverableTimeout = setTimeout(this.checkDeliverable.bind(this), 300);
+        this.checkDeliverableTimeout = setTimeout(() => {
+            this.checkDeliverable(this.state.postalCode)
+        }, 300);
     }
 
     render(){
@@ -244,7 +271,7 @@ export default class PostalCode extends React.Component {
                 }></div>
                 <div style={styles.logoContainer}>
                     <img style={styles.logo} src={logo} alt="Logotyp" />
-                    <h4 style={styles.logoSubheader}>Godis via nätet har aldrig varit enklare</h4>
+                    <h4 style={styles.logoSubheader} className="shadowed">Godis via nätet har aldrig varit enklare</h4>
                 </div>
 
                 <div style={styles.inputContainer}>
@@ -252,9 +279,11 @@ export default class PostalCode extends React.Component {
                     <div>
                     <input id="postal-code-input" type="text"
                         maxLength="5"
-                        defaultValue={this.postalCode}
+                        value={state.postalCode}
                         onChange={(ev) => {
-                            this.postalCode = ev.target.value;
+                            this.setState({
+                                postalCode: ev.target.value
+                            });
                             this.scheduleCheckDeliverable();
                         }}
                         onKeyDown={this.handlePCInputKeyDown.bind(this)} />
@@ -359,7 +388,7 @@ export default class PostalCode extends React.Component {
                                         transformOrigin: '0 0',
                                         opacity: hidden ? 0 : 1,
                                         transform: hidden ? 'scale(0.8) ' : ''
-                                    }}>Just nu levererar vi inte till {this.postalCode}. Kolla förbi senare!</p>
+                                    }}>Just nu levererar vi inte till {this.state.undeliverablePostalCode}. Kolla förbi senare!</p>
                                 </div>
                             );
                         }
@@ -368,7 +397,7 @@ export default class PostalCode extends React.Component {
                 </div>
 
                 <div style={styles.aboutContainer}>
-                    <h3 style={styles.aboutHeading}>Sockra till din vardag <ScrollDownArrow /></h3>
+                    <h3 style={styles.aboutHeading} className="shadowed">Sockra till din vardag <ScrollDownArrow /></h3>
                     <p style={styles.aboutText}>Fuzz lorem ipsum dolor set ameth. Fuzz lorem ipsum dolor set ameth. Fuzz lorem ipsum dolor set ameth.
                     Fuzz lorem ipsum dolor set ameth. Fuzz lorem ipsum dolor set ameth. Fuzz lorem ipsum dolor set ameth.
                     Fuzz lorem ipsum dolor set ameth. Fuzz lorem ipsum dolor set ameth. Fuzz lorem ipsum dolor set ameth. Fuzz lorem ipsum dolor set ameth. 

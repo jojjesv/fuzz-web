@@ -1,0 +1,28 @@
+/* Visible when the post order dialog has been dismissed,
+enables navigation back to it */
+#post-order-shortcut {
+    background: rgb(227, 82, 120);
+    display: inline-block;
+    position: fixed;
+    height: 64px;
+    bottom: 0;
+    right: 5vw;
+    padding: 0 16px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    z-index: 97;
+    transition: transform 250ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Text */
+#post-order-shortcut span {
+    position: relative;
+    margin-left: 6px;
+    bottom: 8px;
+    color: #fafafa;
+    font-size: 17px;
+}
+
+#post-order-shortcut[hidden] {
+    transform: translateY(100%);
+}

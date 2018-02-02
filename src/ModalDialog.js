@@ -10,6 +10,7 @@ const animationDuration = 350;
 
 export default class ModalDialog extends React.Component {
     state = {
+        hasBeenVisible: false,
         visible: false
     }
 
@@ -37,6 +38,7 @@ export default class ModalDialog extends React.Component {
     show(){
         this.showTimestamp = new Date().getTime();
         this.setState({
+            hasBeenVisible: true,
             visible: true
         })
         document.body.setAttribute("has-modal", "1");
@@ -68,11 +70,18 @@ export default class ModalDialog extends React.Component {
     render(){
         let st = this.state;
 
+        if (!st.hasBeenVisible) {
+            return null;
+        }
+
+        let dontUnmount = this.props.dontUnmount == null ? false
+            : this.props.dontUnmount;
+
         return (
             <Transition component='div' in={st.visible} timeout={{
                 enter: 0,
                 exit: animationDuration
-            }} unmountOnExit={true}>
+            }} unmountOnExit={!dontUnmount}>
                 {
                     (state) => (
                         <div className={"modal-bg " + state} id={this.bgId} onClick={

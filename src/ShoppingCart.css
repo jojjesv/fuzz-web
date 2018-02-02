@@ -81,6 +81,10 @@ textarea[name="message"] {
     background-image: url('./assets/ic_card_dark.png');
 }
 
+.payment-method-c:not([checked]):hover {
+    background-color: #e2e2e2;
+}
+
 .payment-method-c:nth-of-type(2) {
     background-image: url('./assets/ic_cash_dark.png');
 }

@@ -1,4 +1,4 @@
-import React, { Componet, DOMElement } from 'react';
+import React, { Component, DOMElement } from 'react';
 import Backend from './Backend';
 import CategoriesExpanded from './CategoriesExpanded';
 import './Categories.css';

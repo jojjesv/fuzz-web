@@ -40,6 +40,10 @@
     cursor: pointer;
 }
 
+#categories .category-li {
+    transform: none;
+}
+
 /* "Remove" icon */
 .category-li .remove {
     position: absolute;
